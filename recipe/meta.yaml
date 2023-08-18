@@ -1,6 +1,16 @@
 {% set repo_name = "spral" %}
 {% set cxx_name = "lib" + repo_name %}
 {% set version = "2023.08.02" %}
+{% set cuda_enabled = cuda_compiler_version != "None" %}
+{% set build_ext = "cuda" if cuda_enabled else "cpu" %}
+
+{% set build_number = 1 %}
+
+# The cpu version is installed by default
+{% if cuda_enabled %}
+{% set build_number = build_number + 200 %}
+{% endif %}
+
 
 package:
   name: {{ cxx_name }}
@@ -12,7 +22,10 @@ source:
 
 build:
   skip: true  # [not linux]
-  number: 0
+  number: {{ build_number }}
+  string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_{{ build_ext }}
+  # The cpu version is installed by default
+  track_features: {{ "[libspral-cuda]" if cuda_enabled else "" }}
   run_exports:
     - {{ pin_subpackage(cxx_name, max_pin='x.x.x') }}
 
@@ -21,6 +34,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
+    - {{ compiler("cuda") }}  # [cuda_enabled]
     - autoconf
     - automake
     - pkg-config
@@ -31,14 +45,18 @@ requirements:
     - libblas
     - libcblas
     - liblapack
+    # Ensure that we have a cuda-enabled libhwloc if CUDA is enabled
     # Workaround for https://github.com/conda-forge/libhwloc-feedstock/issues/64
-    - libhwloc 2.9.1
+    - libhwloc 2.9.1 *nocuda* # [not cuda_enabled]
+    - libhwloc 2.9.1 *cuda* # [not cuda_enabled]
     - zlib
     # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
     - metis 5.1.0
   run:
     # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
     - metis 5.1.0
+    - libhwloc *nocuda* # [not cuda_enabled]
+    - libhwloc *cuda* # [not cuda_enabled]
 
 test:
   commands:
@@ -50,6 +68,13 @@ about:
   license: BSD-3-Clause
   license_file: LICENCE
   summary:  Sparse Parallel Robust Algorithms Library.
+  description: |
+      This feedstock builds the spral library in the `libspral` conda package. Two variants of the package are built:
+
+      * `cpu` in the build string: Without CUDA support, installed by default. Install specifically this version with `conda install libspral=*=*cuda*`.
+      * `cuda` in the build string: With CUDA support. Install specifically this version with  `conda install libspral=*=*cuda*`
+
+
 
 extra:
   feedstock-name: {{ repo_name }}
