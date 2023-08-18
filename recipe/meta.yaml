@@ -34,7 +34,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
-    - {{ compiler("cuda") }}  # [cuda_enabled]
+    - {{ compiler("cuda") }}  # [cuda_compiler_version != "None"]
     - autoconf
     - automake
     - pkg-config
@@ -47,16 +47,15 @@ requirements:
     - liblapack
     # Ensure that we have a cuda-enabled libhwloc if CUDA is enabled
     # Workaround for https://github.com/conda-forge/libhwloc-feedstock/issues/64
-    - libhwloc 2.9.1  # [not cuda_enabled]
-    - libhwloc 2.9.1 *cuda*  # [cuda_enabled]
+    - libhwloc 2.9.1  # [cuda_compiler_version == "None"]
+    - libhwloc 2.9.1 *cuda*  # [cuda_compiler_version != "None"]
     - zlib
     # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
     - metis 5.1.0
   run:
     # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
     - metis 5.1.0
-    - libhwloc *nocuda*  # [not cuda_enabled]
-    - libhwloc *cuda*  # [cuda_enabled]
+    - libhwloc *cuda*  # [cuda_compiler_version != "None"]
 
 test:
   commands:
