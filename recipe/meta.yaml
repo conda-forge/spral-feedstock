@@ -47,7 +47,7 @@ requirements:
     - liblapack
     # Ensure that we have a cuda-enabled libhwloc if CUDA is enabled
     # Workaround for https://github.com/conda-forge/libhwloc-feedstock/issues/64
-    - libhwloc 2.9.1 *nocuda*  # [not cuda_enabled]
+    - libhwloc 2.9.1  # [not cuda_enabled]
     - libhwloc 2.9.1 *cuda*  # [cuda_enabled]
     - zlib
     # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
