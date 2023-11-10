@@ -31,8 +31,7 @@ requirements:
     - libblas
     - libcblas
     - liblapack
-    # Workaround for https://github.com/conda-forge/libhwloc-feedstock/issues/64
-    - libhwloc 2.9.1
+    - libhwloc
     - zlib
     # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
     - metis 5.1.0
