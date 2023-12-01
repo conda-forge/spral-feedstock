@@ -12,7 +12,7 @@ source:
 
 build:
   skip: true  # [not linux]
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage(cxx_name, max_pin='x.x.x') }}
 
@@ -33,11 +33,7 @@ requirements:
     - liblapack
     - libhwloc
     - zlib
-    # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
-    - metis 5.1.0
-  run:
-    # workaround for https://github.com/conda-forge/metis-feedstock/issues/35
-    - metis 5.1.0
+    - metis
 
 test:
   commands:
