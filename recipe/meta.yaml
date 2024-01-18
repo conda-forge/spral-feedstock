@@ -1,6 +1,6 @@
 {% set repo_name = "spral" %}
 {% set cxx_name = "lib" + repo_name %}
-{% set version = "2023.09.07" %}
+{% set version = "2024.01.18" %}
 
 package:
   name: {{ cxx_name }}
@@ -8,7 +8,7 @@ package:
 
 source:
   - url: https://github.com/ralna/spral/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: dbf74191e95c284fb0036886ec9d5047e96f111daaa4c80945c840565b84ef9e
+    sha256: b0dfc71bfad94b5182931b9b913e0adaf1db241b62578839add9749c918fa000
 
 build:
   skip: true  # [not linux]
@@ -48,7 +48,7 @@ about:
   home: https://github.com/ralna/spral
   license: BSD-3-Clause
   license_file: LICENCE
-  summary:  Sparse Parallel Robust Algorithms Library.
+  summary: Sparse Parallel Robust Algorithms Library.
 
 extra:
   feedstock-name: {{ repo_name }}
