@@ -3,7 +3,7 @@
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
-meson setup builddir ${MESON_ARGS} --buildtype=release -Dexamples=false -Dtests=true -Dmodules=false -Dgpu=false
+meson setup builddir ${MESON_ARGS} -Dexamples=false -Dtests=true -Dmodules=false -Dgpu=false
 
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
   # Required for tests to pass, see https://github.com/ralna/spral#usage-at-a-glance
