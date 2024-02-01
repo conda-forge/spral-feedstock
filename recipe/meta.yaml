@@ -21,11 +21,9 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
-    - autoconf
-    - automake
     - pkg-config
-    - make
-    - libgomp  # [linux]
+    - meson
+    - ninja
   host:
     - blas-devel
     - libblas
