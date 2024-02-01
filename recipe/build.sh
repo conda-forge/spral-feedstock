@@ -16,5 +16,5 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}
 fi
 
 # Disable tests before install to avoid tests being installed
-meson setup --reconfigure builddir ${MESON_ARGS} --Dtests=false
+meson setup --reconfigure builddir ${MESON_ARGS} -Dtests=false
 meson install -C builddir
