@@ -1,6 +1,6 @@
 {% set repo_name = "spral" %}
 {% set cxx_name = "lib" + repo_name %}
-{% set version = "2023.09.07" %}
+{% set version = "2024.01.18" %}
 
 package:
   name: {{ cxx_name }}
@@ -8,11 +8,13 @@ package:
 
 source:
   - url: https://github.com/ralna/spral/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: dbf74191e95c284fb0036886ec9d5047e96f111daaa4c80945c840565b84ef9e
+    sha256: b0dfc71bfad94b5182931b9b913e0adaf1db241b62578839add9749c918fa000
+    patches:
+      - increase_test_timeout.patch
 
 build:
   skip: true  # [not linux]
-  number: 2
+  number: 0
   run_exports:
     - {{ pin_subpackage(cxx_name, max_pin='x.x.x') }}
 
@@ -21,11 +23,12 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
-    - autoconf
-    - automake
     - pkg-config
-    - make
+    - meson
+    - ninja
+    # See https://conda-forge.org/docs/maintainer/knowledge_base.html#openmp
     - libgomp  # [linux]
+    - llvm-openmp  # [osx]
   host:
     - blas-devel
     - libblas
@@ -34,6 +37,8 @@ requirements:
     - libhwloc
     - zlib
     - metis
+  run:
+    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:
   commands:
@@ -44,7 +49,7 @@ about:
   home: https://github.com/ralna/spral
   license: BSD-3-Clause
   license_file: LICENCE
-  summary:  Sparse Parallel Robust Algorithms Library.
+  summary: Sparse Parallel Robust Algorithms Library.
 
 extra:
   feedstock-name: {{ repo_name }}
