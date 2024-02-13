@@ -13,7 +13,7 @@ source:
       - increase_test_timeout.patch
 
 build:
-  skip: true  # [not linux]
+  skip: true  # [osx]
   number: 0
   run_exports:
     - {{ pin_subpackage(cxx_name, max_pin='x.x.x') }}
@@ -22,7 +22,9 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
+    - {{ compiler('fortran') }}  # [not win]
+    - flang  # [win]
+    - clang  # [win]
     - pkg-config
     - meson
     - ninja
