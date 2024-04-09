@@ -14,13 +14,14 @@ source:
 
 build:
   skip: true  # [not linux]
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage(cxx_name, max_pin='x.x.x') }}
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - pkg-config
@@ -38,7 +39,6 @@ requirements:
     - zlib
     - metis
   run:
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:
   commands:
