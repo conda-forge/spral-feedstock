@@ -1,6 +1,6 @@
 {% set repo_name = "spral" %}
 {% set cxx_name = "lib" + repo_name %}
-{% set version = "2024.01.18" %}
+{% set version = "2024.05.08" %}
 
 package:
   name: {{ cxx_name }}
@@ -8,7 +8,7 @@ package:
 
 source:
   - url: https://github.com/ralna/spral/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: b0dfc71bfad94b5182931b9b913e0adaf1db241b62578839add9749c918fa000
+    sha256: 0795c10c1c4dab1cf8c2de4024296d75d9d83b7525e82c77584c16060e29e4f5
     patches:
       - increase_test_timeout.patch
 
@@ -21,6 +21,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
     - pkg-config
@@ -38,7 +39,6 @@ requirements:
     - zlib
     - metis
   run:
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:
   commands:
