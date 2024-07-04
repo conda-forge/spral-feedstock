@@ -27,7 +27,7 @@ libblas:
 libcblas:
 - 3.9 *netlib
 libhwloc:
-- 2.10.0
+- 2.11.0
 liblapack:
 - 3.9 *netlib
 metis:
@@ -41,4 +41,4 @@ zip_keys:
 - - c_stdlib_version
   - cdt_name
 zlib:
-- '1.2'
+- '1'
