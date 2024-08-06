@@ -14,7 +14,7 @@ source:
 
 build:
   skip: true  # [not linux]
-  number: 2
+  number: 3
   run_exports:
     - {{ pin_subpackage(cxx_name, max_pin='x.x.x') }}
 
