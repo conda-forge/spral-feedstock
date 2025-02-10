@@ -9,8 +9,7 @@ package:
 source:
   - url: https://github.com/ralna/spral/archive/refs/tags/v{{ version }}.tar.gz
     sha256: c141878e36cb01a3c6f5e677a43d0f7781781755036f59ef91f38090a8f26f71
-    patches:
-      - increase_test_timeout.patch
+
 
 build:
   skip: true  # [not linux]
