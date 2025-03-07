@@ -16,7 +16,7 @@ if [[  "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" && "${CROSSCOMPILING_EMULATOR
   echo "exe_wrapper = '${CROSSCOMPILING_EMULATOR}'" >> "$(pwd)/crosscompiling_emulator_meson_cross_file.txt"
   export MESON_ARGS="${MESON_ARGS} --cross-file $(pwd)/crosscompiling_emulator_meson_cross_file.txt"
   # Tests last longer in emulation, so let's increase the timeouts
-  export MESON_TEST_EXTRA_ARGS="${MESON_TEST_EXTRA_ARGS} --timeout-multiplier 2"
+  export MESON_TEST_EXTRA_ARGS="${MESON_TEST_EXTRA_ARGS} --timeout-multiplier 4"
 fi
 
 meson setup builddir ${MESON_ARGS} -Dexamples=false -Dtests=true -Dmodules=false -Dgpu=false
