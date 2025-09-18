@@ -1,6 +1,6 @@
 {% set repo_name = "spral" %}
 {% set cxx_name = "lib" + repo_name %}
-{% set version = "2025.05.20" %}
+{% set version = "2025.09.18" %}
 
 package:
   name: {{ cxx_name }}
@@ -8,12 +8,12 @@ package:
 
 source:
   - url: https://github.com/ralna/spral/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 77c03b52b5f52b5dff7fb5338be7518e09b1bdf0c0c8899c8938377b9ff240da
+    sha256: 1358168ac95297049e4fc810e54a16e0c765796cfbaa156e09979e2620b7dae7
 
 
 build:
   skip: true  # [not linux]
-  number: 1
+  number: 0
   run_exports:
     - {{ pin_subpackage(cxx_name, max_pin='x.x.x') }}
 
