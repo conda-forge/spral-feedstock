@@ -26,10 +26,10 @@ requirements:
     - pkg-config
     - meson
     - ninja
+  host:
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#openmp
     - libgomp  # [linux]
     - llvm-openmp  # [osx]
-  host:
     - blas-devel
     - libblas
     - libcblas
