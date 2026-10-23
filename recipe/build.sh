@@ -5,7 +5,7 @@ export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
 export LDFLAGS="${LDFLAGS} -lcblas"
 
-export MESON_TEST_EXTRA_ARGS=""
+export MESON_TEST_EXTRA_ARGS="--print-errorlogs"
 if [[  "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" && "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
   # Create a custom crosscompiling_emulator_meson_cross_file.txt to specify the emulator to use for tests
   # and avoid that meson test passes by skipping the tests, and add it to MESON_FLAGS to combine it with
