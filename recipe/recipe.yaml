@@ -1,0 +1,59 @@
+schema_version: 1
+
+context:
+  version: "2025.09.18"
+
+package:
+  name: libspral
+  version: ${{ version }}
+
+source:
+  url: https://github.com/ralna/spral/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 1358168ac95297049e4fc810e54a16e0c765796cfbaa156e09979e2620b7dae7
+  patches:
+    # ldlt_torture_test backward error slightly exceeds 1e-13 on aarch64 and ppc64le
+    - loosen-ldlt-torture-tolerance.patch
+
+build:
+  skip: not linux
+  number: 4
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('fortran') }}
+    - pkgconf
+    - meson
+    - ninja
+  host:
+    # See https://conda-forge.org/docs/maintainer/knowledge_base/#openmp
+    - if: linux
+      then: libgomp
+      else: llvm-openmp
+    - blas-devel
+    - libblas
+    - libcblas
+    - liblapack
+    - libhwloc
+    - zlib
+    - metis
+  run_exports:
+    - ${{ pin_subpackage('libspral', upper_bound='x.x.x') }}
+
+tests:
+  - script:
+      - test -f ${PREFIX}/include/spral.h
+      - test -f ${PREFIX}/lib/libspral${SHLIB_EXT}
+
+about:
+  homepage: https://github.com/ralna/spral
+  license: BSD-3-Clause
+  license_file: LICENCE
+  summary: Sparse Parallel Robust Algorithms Library.
+
+extra:
+  feedstock-name: spral
+  recipe-maintainers:
+    - traversaro
