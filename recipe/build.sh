@@ -26,7 +26,7 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}
   # and https://github.com/ralna/spral/issues/7#issuecomment-288700497
   export OMP_CANCELLATION=TRUE
   export OMP_PROC_BIND=TRUE
-  meson test -C builddir ${MESON_TEST_EXTRA_ARGS}
+  meson test -C builddir --print-errorlogs ${MESON_TEST_EXTRA_ARGS}
 fi
 
 # Disable tests before install to avoid tests being installed
