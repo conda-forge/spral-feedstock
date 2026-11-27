@@ -26,7 +26,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
-    - pkg-config
+    - pkgconf
     - meson
     - ninja
     # See https://conda-forge.org/docs/maintainer/knowledge_base.html#openmp
