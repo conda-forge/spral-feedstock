@@ -26,11 +26,6 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}
   # and https://github.com/ralna/spral/issues/7#issuecomment-288700497
   export OMP_CANCELLATION=TRUE
   export OMP_PROC_BIND=TRUE
-  # The ldlt_torture_test backward error is marginally above its 1e-13 tolerance
-  # (e.g. 1.02e-13) with random seeds on aarch64 and ppc64le, so skip that suite there
-  if [[ "${target_platform}" == "linux-aarch64" || "${target_platform}" == "linux-ppc64le" ]]; then
-    MESON_TEST_EXTRA_ARGS="${MESON_TEST_EXTRA_ARGS} --no-suite SPRAL:kernels+tests+C++"
-  fi
   meson test -C builddir --print-errorlogs ${MESON_TEST_EXTRA_ARGS}
 fi
 
